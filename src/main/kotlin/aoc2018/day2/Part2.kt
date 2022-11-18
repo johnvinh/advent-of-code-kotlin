@@ -16,7 +16,7 @@ fun main() {
             }
             // Found the 2 lines
             if (numSame == line.length-1) {
-                // Find their difference
+                // Find what letters they have in common
                 for (k in line.indices) {
                     if (line[k] == nextLine[k]) {
                         print(line[k])
