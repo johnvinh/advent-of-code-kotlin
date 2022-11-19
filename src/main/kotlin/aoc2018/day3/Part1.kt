@@ -2,6 +2,18 @@ package aoc2018.day3
 
 import dev.johnvinh.getInput
 
+fun getNumOverlapping(fabric: Array<Array<Int>>): Int {
+    var numOverlapping = 0
+    for (row in 0..999) {
+        for (column in 0..999) {
+            if (fabric[row][column] > 1) {
+                numOverlapping++
+            }
+        }
+    }
+    return numOverlapping
+}
+
 fun main() {
     // Claim ID, inches from left, inches from top, width, height
     val regex = Regex("^#([0-9]+?) @ ([0-9]+?),([0-9]+?): ([0-9]+?)x([0-9]+?)$")
@@ -27,13 +39,5 @@ fun main() {
         }
     }
     // Now, check the number of overlapping claims
-    var numOverlapping = 0
-    for (row in 0..999) {
-        for (column in 0..999) {
-            if (fabric[row][column] > 1) {
-                numOverlapping++
-            }
-        }
-    }
-    println(numOverlapping)
+    println(getNumOverlapping(fabric))
 }
