@@ -11,11 +11,29 @@ fun main() {
     for (line in input) {
         val match = regex.matchEntire(line)
         if (match != null) {
-            val id = match.groups[1]?.value?.toInt()
-            val inchesFromLeft = match.groups[2]?.value?.toInt()
-            val inchesFromTop = match.groups[3]?.value?.toInt()
-            val width = match.groups[4]?.value?.toInt()
-            val height = match.groups[5]?.value?.toInt()
+            val id = match.groups[1]?.value?.toInt() ?: -1
+            val inchesFromLeft = match.groups[2]?.value?.toInt() ?: -1
+            val inchesFromTop = match.groups[3]?.value?.toInt() ?: -1
+            val width = match.groups[4]?.value?.toInt() ?: -1
+            val height = match.groups[5]?.value?.toInt() ?: -1
+
+            // Inches from left represents column
+            // Inches from top represents row
+            for (i in inchesFromTop until inchesFromTop+height) {
+                for (j in inchesFromLeft until inchesFromLeft+width) {
+                    fabric[i][j] += 1
+                }
+            }
         }
     }
+    // Now, check the number of overlapping claims
+    var numOverlapping = 0
+    for (row in 0..999) {
+        for (column in 0..999) {
+            if (fabric[row][column] > 1) {
+                numOverlapping++
+            }
+        }
+    }
+    println(numOverlapping)
 }
