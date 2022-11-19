@@ -31,10 +31,27 @@ fun main() {
     var fabric = Array(1000) { Array(1000) { ArrayList<Int>() } }
     for (line in input) fabric = allocateSpaceWithIdClaim(regex, fabric, line)
 
+    // A HashSet containing the ids of conflicting inches (more than one overlapping)
+    val moreThanOneOccupying = HashSet<Int>()
     for (row in 0..999) {
         for (column in 0..999) {
+            if (fabric[row][column].size > 1) {
+                moreThanOneOccupying.addAll(fabric[row][column])
+            }
+        }
+    }
+
+    // One last iteration to find the only ID that doesn't conflict
+    var found = false
+    for (row in 0..999) {
+        if (found) break
+        for (column in 0..999) {
             if (fabric[row][column].size == 1) {
-                println(fabric[row][column])
+                if (fabric[row][column][0] !in moreThanOneOccupying) {
+                    println(fabric[row][column][0])
+                    found = true
+                    break
+                }
             }
         }
     }
