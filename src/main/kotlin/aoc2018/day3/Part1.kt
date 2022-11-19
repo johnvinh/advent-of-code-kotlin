@@ -25,8 +25,8 @@ fun allocateSpace(regex: Regex, fabric: Array<Array<Int>>, line: String): Array<
 
         // Inches from left represents column
         // Inches from top represents row
-        for (i in inchesFromTop until inchesFromTop+height) {
-            for (j in inchesFromLeft until inchesFromLeft+width) {
+        for (i in inchesFromTop until inchesFromTop + height) {
+            for (j in inchesFromLeft until inchesFromLeft + width) {
                 fabric[i][j] += 1
             }
         }
@@ -39,7 +39,7 @@ fun main() {
     val regex = Regex("^#([0-9]+?) @ ([0-9]+?),([0-9]+?): ([0-9]+?)x([0-9]+?)$")
     val input = getInput()
     // 1000*1000 array representing number the number of claims that claim each inch
-    var fabric = Array(1000) {Array(1000) {0} }
+    var fabric = Array(1000) { Array(1000) { 0 } }
     for (line in input) fabric = allocateSpace(regex, fabric, line)
     // Now, check the number of overlapping claims
     println(getNumOverlapping(fabric))
