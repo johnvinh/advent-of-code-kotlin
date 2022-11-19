@@ -9,7 +9,11 @@ fun main() {
     for (line in input) {
         val match = regex.matchEntire(line)
         if (match != null) {
-            
+            val id = match.groups[1]?.value?.toInt()
+            val inchesFromLeft = match.groups[2]?.value?.toInt()
+            val inchesFromTop = match.groups[3]?.value?.toInt()
+            val width = match.groups[4]?.value?.toInt()
+            val height = match.groups[5]?.value?.toInt()
         }
     }
 }
