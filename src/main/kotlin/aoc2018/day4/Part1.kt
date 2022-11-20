@@ -1,9 +1,14 @@
 package aoc2018.day4
 
 import dev.johnvinh.getInput
+import kotlin.math.log
 import kotlin.math.min
 
-class LogEntry(val month: Int, val year: Int, val hour: Int, val minute: Int)
+data class LogEntry(val month: Int, val day: Int, val hour: Int, val minute: Int, val action: String): Comparable<LogEntry> {
+    override fun compareTo(other: LogEntry): Int {
+        return compareValuesBy(this, other, { it.month }, { it.day }, { it.hour }, { it.minute })
+    }
+}
 
 fun main() {
     val lines = getInput()
@@ -15,11 +20,28 @@ fun main() {
     for (line in lines) {
         val timeMatch = timeRegex.find(line)
         if (timeMatch != null) {
-            val month = timeMatch.groups[1]?.value
-            val day = timeMatch.groups[2]?.value
-            val hour = timeMatch.groups[3]?.value
-            val minute = timeMatch.groups[4]?.value
-            println(minute)
+            val month = timeMatch.groups[1]?.value?.toInt() ?: -1
+            val day = timeMatch.groups[2]?.value?.toInt() ?: -1
+            val hour = timeMatch.groups[3]?.value?.toInt() ?: -1
+            val minute = timeMatch.groups[4]?.value?.toInt() ?: -1
+
+            var match = shiftBeginRegex.find(line)
+            if (match != null) {
+                val guardId = match.groups[1]?.value
+                logEntries.add(LogEntry(month, day, hour, minute, "$guardId start"))
+                continue
+            }
+            match = fallsAsleepRegex.find(line)
+            if (match != null) {
+                logEntries.add(LogEntry(month, day, hour, minute, "sleep"))
+                continue
+            }
+            match = wakesUpRegex.find(line)
+            if (match != null) {
+                logEntries.add(LogEntry(month, day, hour, minute, "wakes up"))
+            }
         }
     }
+
+    logEntries.sort()
 }
