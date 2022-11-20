@@ -34,23 +34,23 @@ fun getMostSleepyMinute(logEntries: ArrayList<LogEntry>, guardId: Int): Int {
     val sleepyMinutes = HashMap<Int, Int>()
     val regex = Regex("^([0-9]+?) start$")
     var currentGuard = -1
-    var lastAction = ""
+    var startSleepingMinute = 0
     for (logEntry in logEntries) {
         val match = regex.find(logEntry.action)
         // Check if a guard changed first
         if (match != null) {
             currentGuard = match.groups[1]?.value?.toInt() ?: -1
-            lastAction = "wakes up"
         } else {
             if (logEntry.action == "sleep") {
-                lastAction = "sleep"
+                startSleepingMinute = logEntry.minute
             } else if (logEntry.action == "wakes up") {
-                lastAction = "wakes up"
+                if (currentGuard == guardId) {
+                    // Each of the minutes in-between the start sleep and wakeup times are considered sleeping minutes
+                    for (minute in startSleepingMinute..logEntry.minute) {
+                        sleepyMinutes[minute] = sleepyMinutes.getOrDefault(minute, 0) + 1
+                    }
+                }
             }
-        }
-        // Now, increment the minutes if asleep
-        if (lastAction == "sleep" && currentGuard == guardId) {
-            sleepyMinutes[logEntry.minute] = sleepyMinutes.getOrDefault(logEntry.minute, 0) + 1
         }
     }
     return (sleepyMinutes.maxBy { it.value }).key
@@ -94,8 +94,6 @@ fun main() {
     // 2. Find the guard with the most minutes asleep
     val minutesAsleep = getMinutesAsleep(logEntries)
     val maxId = minutesAsleep.maxBy { it.value }
-    print(minutesAsleep)
-    return
     // 3. Find the minute that guard spends the most time asleep
     val sleepyMinute = getMostSleepyMinute(logEntries, maxId.key)
     println(maxId.key * sleepyMinute)
