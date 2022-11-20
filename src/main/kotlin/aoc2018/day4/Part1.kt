@@ -10,6 +10,28 @@ data class LogEntry(val month: Int, val day: Int, val hour: Int, val minute: Int
     }
 }
 
+fun getMinutesAsleep(logEntries: ArrayList<LogEntry>): HashMap<Int, Int> {
+    val minutesAsleep = HashMap<Int, Int>()
+    val regex = Regex("^([0-9]+?) start$")
+    var currentGuard = -1
+    var lastAction = ""
+    for (logEntry in logEntries) {
+        val match = regex.find(logEntry.action)
+        // Check if a guard changed first
+        if (match != null) {
+            currentGuard = match.groups[1]?.value?.toInt() ?: -1
+            lastAction = "wakes up"
+        } else {
+            if (logEntry.action == "sleep") {
+                minutesAsleep[currentGuard] = minutesAsleep.getOrDefault(currentGuard, 0) + 1
+            } else if (logEntry.action == "wakes up") {
+
+            }
+        }
+    }
+    return minutesAsleep
+}
+
 fun main() {
     val lines = getInput()
     val logEntries = ArrayList<LogEntry>()
@@ -43,5 +65,9 @@ fun main() {
         }
     }
 
+    // 1. Sort the entries in chronological order
     logEntries.sort()
+    // 2. Find the guard with the most minutes asleep
+    val minutesAsleep = getMinutesAsleep(logEntries)
+    
 }
