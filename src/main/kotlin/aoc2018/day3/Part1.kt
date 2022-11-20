@@ -17,7 +17,6 @@ fun getNumOverlapping(fabric: Array<Array<Int>>): Int {
 fun allocateSpace(regex: Regex, fabric: Array<Array<Int>>, line: String): Array<Array<Int>> {
     val match = regex.matchEntire(line)
     if (match != null) {
-        val id = match.groups[1]?.value?.toInt() ?: -1
         val inchesFromLeft = match.groups[2]?.value?.toInt() ?: -1
         val inchesFromTop = match.groups[3]?.value?.toInt() ?: -1
         val width = match.groups[4]?.value?.toInt() ?: -1
