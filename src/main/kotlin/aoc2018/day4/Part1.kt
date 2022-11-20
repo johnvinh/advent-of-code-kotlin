@@ -1,8 +1,6 @@
 package aoc2018.day4
 
 import dev.johnvinh.getInput
-import kotlin.math.log
-import kotlin.math.min
 
 data class LogEntry(val month: Int, val day: Int, val hour: Int, val minute: Int, val action: String): Comparable<LogEntry> {
     override fun compareTo(other: LogEntry): Int {
@@ -12,20 +10,19 @@ data class LogEntry(val month: Int, val day: Int, val hour: Int, val minute: Int
 
 fun getMinutesAsleep(logEntries: ArrayList<LogEntry>): HashMap<Int, Int> {
     val minutesAsleep = HashMap<Int, Int>()
-    val regex = Regex("^([0-9]+?) start$")
+    val startRegex = Regex("^([0-9]+?) start$")
     var currentGuard = -1
-    var lastAction = ""
+    var startSleepingMinute = -1
     for (logEntry in logEntries) {
-        val match = regex.find(logEntry.action)
-        // Check if a guard changed first
-        if (match != null) {
-            currentGuard = match.groups[1]?.value?.toInt() ?: -1
-            lastAction = "wakes up"
+        val startMatch = startRegex.find(logEntry.action)
+        // Check if the guard is changing first
+        if (startMatch != null) {
+            currentGuard = startMatch.groups[1]?.value?.toInt() ?: -1
         } else {
             if (logEntry.action == "sleep") {
-                lastAction = "sleep"
+                startSleepingMinute = logEntry.minute
             } else if (logEntry.action == "wakes up") {
-                lastAction = "wakes up"
+                minutesAsleep[currentGuard] = minutesAsleep.getOrDefault(currentGuard, 0) + (logEntry.minute - startSleepingMinute)
             }
         }
     }
@@ -97,6 +94,8 @@ fun main() {
     // 2. Find the guard with the most minutes asleep
     val minutesAsleep = getMinutesAsleep(logEntries)
     val maxId = minutesAsleep.maxBy { it.value }
+    print(minutesAsleep)
+    return
     // 3. Find the minute that guard spends the most time asleep
     val sleepyMinute = getMostSleepyMinute(logEntries, maxId.key)
     println(maxId.key * sleepyMinute)
