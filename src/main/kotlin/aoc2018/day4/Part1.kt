@@ -64,14 +64,14 @@ fun convertToLogEntries(input: List<String>, logEntries: ArrayList<LogEntry>) {
 fun getMostSleepyMinute(logEntries: ArrayList<LogEntry>, guardId: Int): Int {
     // Key: Minute, value: num times asleep
     val sleepyMinutes = HashMap<Int, Int>()
-    val regex = Regex("^([0-9]+?) start$")
+    val startRegex = Regex("^([0-9]+?) start$")
     var currentGuard = -1
     var startSleepingMinute = 0
     for (logEntry in logEntries) {
-        val match = regex.find(logEntry.action)
+        val startMatch = startRegex.find(logEntry.action)
         // Check if a guard changed first
-        if (match != null) {
-            currentGuard = match.groups[1]?.value?.toInt() ?: -1
+        if (startMatch != null) {
+            currentGuard = startMatch.groups[1]?.value?.toInt() ?: -1
         } else {
             if (logEntry.action == "sleep") {
                 startSleepingMinute = logEntry.minute
