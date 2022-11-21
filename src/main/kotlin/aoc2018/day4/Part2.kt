@@ -2,7 +2,7 @@ package aoc2018.day4
 
 import dev.johnvinh.getInput
 
-fun getGuardMostSleepyMinute(logEntries: ArrayList<LogEntry>): HashMap<Int, HashMap<Int, Int>> {
+fun getGuardMostSleepyMinute(logEntries: ArrayList<LogEntry>) {
     var currentGuard = -1
     val numTimesAsleepPerMinute = HashMap<Int, HashMap<Int, Int>>()
     val startRegex = Regex("^([0-9]+?) start$")
@@ -29,7 +29,18 @@ fun getGuardMostSleepyMinute(logEntries: ArrayList<LogEntry>): HashMap<Int, Hash
             }
         }
     }
-    return numTimesAsleepPerMinute
+    var max = 0
+    var maxGuard = 0
+    var maxMinute = 0
+    for (guard in numTimesAsleepPerMinute.keys) {
+        if (numTimesAsleepPerMinute[guard]?.maxBy {it.value}?.value!! > max) {
+            max = numTimesAsleepPerMinute[guard]?.maxBy {it.value}?.value ?: -1
+            maxGuard = guard
+            maxMinute = numTimesAsleepPerMinute[guard]?.maxBy {it.value}?.key ?: -1
+        }
+    }
+    println("Guard ID: $maxGuard")
+    println("Minute: $maxMinute")
 }
 
 fun main() {
@@ -37,5 +48,5 @@ fun main() {
     val logEntries = ArrayList<LogEntry>()
     convertToLogEntries(lines,  logEntries)
     logEntries.sort()
-    println(getGuardMostSleepyMinute(logEntries))
+    getGuardMostSleepyMinute(logEntries)
 }
