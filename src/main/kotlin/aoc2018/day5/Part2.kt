@@ -18,6 +18,8 @@ fun removeSpecificType(type: Char, polymer: String): String {
         }
         if (currentCharacter.lowercaseChar() == type.lowercaseChar()) {
             polymerSb.deleteCharAt(i)
+            i = 0
+            continue
         }
         i++
     }
@@ -26,5 +28,14 @@ fun removeSpecificType(type: Char, polymer: String): String {
 
 fun main() {
     val input = getInput()
-    println(removeSpecificType('B', input[0]))
+    println(removeSpecificType('D', input[0]))
+    /*var min = Int.MAX_VALUE
+    for (alphabet in 'a'..'z') {
+        val newPolymer = removeSpecificType(alphabet, input[0])
+        val outPolymer = scanPolymer(newPolymer)
+        if (outPolymer.length < min) {
+            min = outPolymer.length
+        }
+    }
+    println(min)*/
 }
