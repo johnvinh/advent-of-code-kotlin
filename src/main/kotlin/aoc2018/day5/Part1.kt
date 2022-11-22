@@ -14,6 +14,11 @@ fun checkIfReaction(first: Char, second: Char): Boolean {
     return false
 }
 
+fun scanPolymer(polymer: String): String {
+    val sb = StringBuilder(polymer)
+    return sb.toString()
+}
+
 fun main() {
     val input = getInput()
 }
