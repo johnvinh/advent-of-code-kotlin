@@ -16,6 +16,13 @@ fun checkIfReaction(first: Char, second: Char): Boolean {
 
 fun scanPolymer(polymer: String): String {
     val sb = StringBuilder(polymer)
+    for (i in polymer.indices) {
+        if (i == polymer.length - 1) {
+            break
+        }
+        val currentCharacter = polymer[i]
+        val nextCharacter = polymer[i + 1]
+    }
     return sb.toString()
 }
 
