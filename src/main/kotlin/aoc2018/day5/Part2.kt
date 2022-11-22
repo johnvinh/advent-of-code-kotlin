@@ -28,8 +28,7 @@ fun removeSpecificType(type: Char, polymer: String): String {
 
 fun main() {
     val input = getInput()
-    println(removeSpecificType('D', input[0]))
-    /*var min = Int.MAX_VALUE
+    var min = Int.MAX_VALUE
     for (alphabet in 'a'..'z') {
         val newPolymer = removeSpecificType(alphabet, input[0])
         val outPolymer = scanPolymer(newPolymer)
@@ -37,5 +36,5 @@ fun main() {
             min = outPolymer.length
         }
     }
-    println(min)*/
+    println(min)
 }
