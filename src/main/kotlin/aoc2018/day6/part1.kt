@@ -10,7 +10,7 @@ fun createGrid(lines: List<String>): Array<IntArray> {
         if (match != null) {
             val column = match.groups[1]?.value?.toInt() ?: -1
             val row = match.groups[2]?.value?.toInt() ?: -1
-            grid[column][row] = i
+            grid[row][column] = i
         }
     }
     return grid
