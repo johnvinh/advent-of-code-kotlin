@@ -18,4 +18,5 @@ fun createGrid(lines: List<String>): Array<IntArray> {
 
 fun main() {
     val input = getInput()
+    val grid = createGrid(input)
 }
