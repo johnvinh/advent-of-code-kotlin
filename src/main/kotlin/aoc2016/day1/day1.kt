@@ -8,4 +8,5 @@ fun move(currentX: Int, currentY: Int, newDirection: Char, previousDirection: Ch
 
 fun main() {
     val lines = getInput()
+    val input = lines[0]
 }
