@@ -18,4 +18,6 @@ fun main() {
     buttons[3][2] = "B"
     buttons[3][3] = "C"
     buttons[4][2] = "D"
+
+    printKeypadNumber(lines, buttons, intArrayOf(2, 0))
 }
