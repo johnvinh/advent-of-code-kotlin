@@ -3,7 +3,7 @@ package aoc2016.day2
 import dev.johnvinh.getInput
 import java.lang.IllegalArgumentException
 
-fun getNewPosition(currentPosition: IntArray, direction: String, buttons: Array<IntArray>): IntArray {
+fun getNewPosition(currentPosition: IntArray, direction: String, buttons: Array<Array<String>>): IntArray {
     val row = currentPosition[0]
     val col = currentPosition[1]
 
@@ -32,7 +32,7 @@ fun getNewPosition(currentPosition: IntArray, direction: String, buttons: Array<
     }
 }
 
-fun printKeypadNumber(lines: List<String>, buttons: Array<IntArray>) {
+fun printKeypadNumber(lines: List<String>, buttons: Array<Array<String>>) {
     var currentRow = 0
     var currentCol = 0
     for (i in lines.indices) {
@@ -54,11 +54,11 @@ fun printKeypadNumber(lines: List<String>, buttons: Array<IntArray>) {
 
 fun main() {
     val lines = getInput()
-    val buttons = Array(3){IntArray(3) {0} }
+    val buttons = Array(3){Array<String>(3) {""} }
     var current = 1
     for (i in buttons.indices) {
         for (j in buttons[i].indices) {
-            buttons[i][j] = current
+            buttons[i][j] = current.toString()
             current++
         }
     }
