@@ -2,6 +2,10 @@ package aoc2016.day2
 
 import dev.johnvinh.getInput
 
+fun getNewPosition(direction: String, buttons: Array<IntArray>): IntArray {
+    return intArrayOf(0, 0)
+}
+
 fun main() {
     val lines = getInput()
     val buttons = Array(3){IntArray(3) {0} }
