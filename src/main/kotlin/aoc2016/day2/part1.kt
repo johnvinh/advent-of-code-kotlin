@@ -2,7 +2,7 @@ package aoc2016.day2
 
 import dev.johnvinh.getInput
 
-fun getNewPosition(direction: String, buttons: Array<IntArray>): IntArray {
+fun getNewPosition(currentPosition: IntArray, direction: String, buttons: Array<IntArray>): IntArray {
     return intArrayOf(0, 0)
 }
 
