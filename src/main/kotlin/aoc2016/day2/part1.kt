@@ -32,17 +32,7 @@ fun getNewPosition(currentPosition: IntArray, direction: String, buttons: Array<
     }
 }
 
-fun main() {
-    val lines = getInput()
-    val buttons = Array(3){IntArray(3) {0} }
-    var current = 1
-    for (i in buttons.indices) {
-        for (j in buttons[i].indices) {
-            buttons[i][j] = current
-            current++
-        }
-    }
-
+fun printKeypadNumber(lines: List<String>, buttons: Array<IntArray>) {
     var currentRow = 0
     var currentCol = 0
     for (i in lines.indices) {
@@ -60,4 +50,18 @@ fun main() {
         }
         print(buttons[currentRow][currentCol])
     }
+}
+
+fun main() {
+    val lines = getInput()
+    val buttons = Array(3){IntArray(3) {0} }
+    var current = 1
+    for (i in buttons.indices) {
+        for (j in buttons[i].indices) {
+            buttons[i][j] = current
+            current++
+        }
+    }
+
+    printKeypadNumber(lines, buttons)
 }
