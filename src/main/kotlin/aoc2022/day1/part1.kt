@@ -26,4 +26,6 @@ fun getCaloriesPerElf(lines: List<String>): ArrayList<Int> {
 
 fun main() {
     val lines = getInput()
+    val caloriesPerElf = getCaloriesPerElf(lines)
+    println(caloriesPerElf.maxBy{it})
 }
