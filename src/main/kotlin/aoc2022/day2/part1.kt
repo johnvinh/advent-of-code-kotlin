@@ -41,4 +41,11 @@ fun calculateScore(opponentPlay: Char, myPlay: Char): Int {
 
 fun main() {
     val lines = getInput()
+    var totalScore = 0
+    for (line in lines) {
+        val opponentPlay = line[0]
+        val myPlay = line[2]
+        totalScore += calculateScore(opponentPlay, myPlay)
+    }
+    println(totalScore)
 }
