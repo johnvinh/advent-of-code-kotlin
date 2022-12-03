@@ -19,8 +19,7 @@ fun getCommonItem(rucksack: String): Char {
     return '0'
 }
 
-fun main() {
-    val lines = getInput()
+fun getItemPriorities(): HashMap<Char, Int> {
     var priority = 1
     val priorities = HashMap<Char, Int>()
     for (itemType in 'a'..'z') {
@@ -32,6 +31,11 @@ fun main() {
         priorities[itemType] = priority
         priority++
     }
+    return  priorities
+}
+fun main() {
+    val lines = getInput()
+    val priorities = getItemPriorities()
 
     var sum = 0
     for (line in lines) {
