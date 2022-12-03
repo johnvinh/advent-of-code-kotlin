@@ -32,4 +32,10 @@ fun main() {
         priorities[itemType] = priority
         priority++
     }
+
+    var sum = 0
+    for (line in lines) {
+        sum += priorities[getCommonItem(line)] ?: 0
+    }
+    println("Part 1 solution: $sum")
 }
