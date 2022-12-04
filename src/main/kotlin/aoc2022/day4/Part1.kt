@@ -35,11 +35,28 @@ fun fullyContainsOtherSection(sectionPair: String): Boolean {
     return true
 }
 
+/**
+ * An alternative solution to part 1
+ */
+fun fullyContainsOtherSection2(sectionPair: String): Boolean {
+    val regex = Regex("([0-9]+?)-([0-9]+)")
+    val sections = regex.findAll(sectionPair).map{listOf(it.groupValues[1].toInt(), it.groupValues[2].toInt())}.toList()
+    if ((sections[0][0] >= sections[1][0]) && (sections[0][1] <= sections[1][1])) {
+        return true
+    } else if ((sections[1][0] >= sections[0][0]) && (sections[1][1] <= sections[0][1])) {
+        return true
+    }
+    return false
+}
+
 fun main() {
     val lines = getInput()
     var num = 0
     for (line in lines) {
-        if (fullyContainsOtherSection(line)) {
+        /*if (fullyContainsOtherSection(line)) {
+            num++
+        }*/
+        if (fullyContainsOtherSection2(line)) {
             num++
         }
     }
