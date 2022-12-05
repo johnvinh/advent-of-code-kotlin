@@ -56,7 +56,6 @@ fun executeInstructions(input: List<String>, stacks: ArrayList<Stack<Char>>): Ar
         val amount = match?.groups?.get(1)?.value?.toInt() ?: 0
         val from = match?.groups?.get(2)?.value?.toInt() ?: 0
         val to = match?.groups?.get(3)?.value?.toInt() ?: 0
-        println("Amount: $amount, From: $from, To: $to")
         // Move one at a time
         for (j in 1..amount) {
             val item = stacks[from - 1].pop()
@@ -67,12 +66,16 @@ fun executeInstructions(input: List<String>, stacks: ArrayList<Stack<Char>>): Ar
 }
 
 fun getMessage(stacks: ArrayList<Stack<Char>>): String {
-    return ""
+    val output = StringBuilder()
+    for (stack in stacks) {
+        output.append(stack.pop())
+    }
+    return output.toString()
 }
 
 fun main() {
     val lines = getInput()
     val stacks = initializeStacks(lines)
     executeInstructions(lines, stacks)
-    println(stacks)
+    println(getMessage(stacks))
 }
