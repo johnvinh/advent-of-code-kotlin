@@ -38,6 +38,10 @@ fun initializeStacks(input: List<String>): ArrayList<Stack<Char>> {
     return stacks
 }
 
+fun executeInstructions(input: List<String>, stacks: ArrayList<Stack<Char>>): ArrayList<Stack<Char>> {
+    return ArrayList()
+}
+
 fun main() {
     val lines = getInput()
     val stacks = initializeStacks(lines)
