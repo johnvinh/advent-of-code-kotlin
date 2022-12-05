@@ -66,6 +66,10 @@ fun executeInstructions(input: List<String>, stacks: ArrayList<Stack<Char>>): Ar
     return ArrayList()
 }
 
+fun getMessage(stacks: ArrayList<Stack<Char>>): String {
+    return ""
+}
+
 fun main() {
     val lines = getInput()
     val stacks = initializeStacks(lines)
