@@ -1,5 +1,7 @@
 package aoc2022.day6
 
+import dev.johnvinh.getInput
+
 fun getStartOfMessageMarker(input: String): Int {
     for (i in input.indices) {
         // For each character, check if this charavter and the 13 afterwards
@@ -15,4 +17,10 @@ fun getStartOfMessageMarker(input: String): Int {
         }
     }
     return -1
+}
+
+fun main() {
+    val lines = getInput()
+    val input = lines[0]
+    println(getStartOfMessageMarker(input))
 }
