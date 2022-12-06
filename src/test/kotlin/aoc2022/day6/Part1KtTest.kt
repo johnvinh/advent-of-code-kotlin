@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions.*
 class Part1KtTest {
 
     @Test
-    fun getEndOfMarkerCharacter() {
+    fun getEndOfMarkerCharacterTest() {
+        assertEquals(7, getEndOfMarkerCharacter("mjqjpqmgbljsphdztnvjfqwrcgsmlb"))
     }
 }
