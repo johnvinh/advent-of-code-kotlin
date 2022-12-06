@@ -9,5 +9,9 @@ class Part1KtTest {
     @Test
     fun getEndOfMarkerCharacterTest() {
         assertEquals(7, getEndOfMarkerCharacter("mjqjpqmgbljsphdztnvjfqwrcgsmlb"))
+        assertEquals(5, getEndOfMarkerCharacter("bvwbjplbgvbhsrlpgdmjqwftvncz"))
+        assertEquals(6, getEndOfMarkerCharacter("nppdvjthqldpwncqszvftbrmjlhg"))
+        assertEquals(10, getEndOfMarkerCharacter("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg"))
+        assertEquals(11, getEndOfMarkerCharacter("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw"))
     }
 }
