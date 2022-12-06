@@ -1,5 +1,7 @@
 package aoc2022.day6
 
+import dev.johnvinh.getInput
+
 fun getEndOfMarkerCharacter(input: String): Int {
     for (i in input.indices) {
         // For each character, check if this charavter and the three afterwards
@@ -16,4 +18,10 @@ fun getEndOfMarkerCharacter(input: String): Int {
         }
     }
     return -1
+}
+
+fun main() {
+    val lines = getInput()
+    val input = lines[0]
+    println(getEndOfMarkerCharacter(input))
 }
