@@ -14,9 +14,4 @@ class Part1KtTest {
         assertEquals(10, getEndOfMarkerCharacter("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg"))
         assertEquals(11, getEndOfMarkerCharacter("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw"))
     }
-
-    @Test
-    fun getStartOfMessageMarkerTest() {
-        assertEquals(19, getStartOfMessageMarker("mjqjpqmgbljsphdztnvjfqwrcgsmlb"))
-    }
 }

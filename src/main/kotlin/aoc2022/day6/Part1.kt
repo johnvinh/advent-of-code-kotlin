@@ -20,10 +20,6 @@ fun getEndOfMarkerCharacter(input: String): Int {
     return -1
 }
 
-fun getStartOfMessageMarker(input: String): Int {
-    return -1
-}
-
 fun main() {
     val lines = getInput()
     val input = lines[0]
