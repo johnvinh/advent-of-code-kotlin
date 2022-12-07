@@ -2,7 +2,7 @@ package aoc2022.day7
 
 import dev.johnvinh.getInput
 
-open class File(val name: String, val size: Int, val parent: Directory?) {
+open class File(val name: String, var size: Int, val parent: Directory?) {
     constructor(name: String, parent: Directory?) : this(name, 0, parent)
 }
 
@@ -10,10 +10,9 @@ class Directory(name: String, parent: Directory?) : File(name, parent) {
     val children = ArrayList<File>()
 }
 
-fun getDirTotalSize(dirName: String): Int {
-    return -1
-}
-
+/**
+ * Construct the file system from the input
+ */
 fun constructDirTree(lines: List<String>): Directory {
     val fileRegex = Regex("^([0-9]+?) (.+)$")
     val dirRegex = Regex("^dir (.+)$")
@@ -63,7 +62,53 @@ fun constructDirTree(lines: List<String>): Directory {
     return currentDirectory
 }
 
+/**
+ * Get a directory's total size
+ */
+fun getDirSize(dir: Directory): Int {
+    // Base case
+    if (dir.children.size == 0) {
+        return 0
+    }
+    var sum = 0
+    for (file in dir.children) {
+        sum += if (file is Directory) {
+            getDirSize(file)
+        } else {
+            file.size
+        }
+    }
+    return sum
+}
+
+/**
+ * Get all the directories which are children of a directory
+ */
+fun getChildDirs(dir: Directory): HashSet<Directory> {
+    val childDirs = HashSet<Directory>()
+    for (file in dir.children) {
+        if (file is Directory) {
+            for (childDir in getChildDirs(file)) {
+                childDirs.add(childDir)
+            }
+            childDirs.add(file)
+        }
+    }
+    return childDirs
+}
+
 fun main() {
     val input = getInput()
     val root = constructDirTree(input)
+    val childDirs = getChildDirs(root)
+    // Now that we have every directory, get the ones
+    // with size at most 100000
+    val smallSizes = ArrayList<Int>()
+    for (dir in childDirs) {
+        val dirSize = getDirSize(dir)
+        if (dirSize <= 100000) {
+            smallSizes.add(dirSize)
+        }
+    }
+    println(smallSizes.sum())
 }
