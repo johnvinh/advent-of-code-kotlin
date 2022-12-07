@@ -7,6 +7,17 @@ import org.junit.jupiter.api.Assertions.*
 class Part1KtTest {
 
     @Test
-    fun getDirTotalSize() {
+    fun getDirTotalSizeTest1() {
+        assertEquals(584, getDirTotalSize("e"));
+    }
+
+    @Test
+    fun getDirTotalSizeTest2() {
+        assertEquals(94853, getDirTotalSize("a"));
+    }
+
+    @Test
+    fun getDirTotalSizeTest3() {
+        assertEquals(24933642, getDirTotalSize("d"));
     }
 }
