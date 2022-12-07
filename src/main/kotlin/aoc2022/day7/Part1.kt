@@ -97,6 +97,10 @@ fun getChildDirs(dir: Directory): HashSet<Directory> {
     return childDirs
 }
 
+internal object ProblemConstants {
+    const val TARGET_MAX_SIZE = 100000
+}
+
 fun main() {
     val input = getInput()
     val root = constructDirTree(input)
@@ -106,7 +110,7 @@ fun main() {
     val smallSizes = ArrayList<Int>()
     for (dir in childDirs) {
         val dirSize = getDirSize(dir)
-        if (dirSize <= 100000) {
+        if (dirSize <= ProblemConstants.TARGET_MAX_SIZE) {
             smallSizes.add(dirSize)
         }
     }
