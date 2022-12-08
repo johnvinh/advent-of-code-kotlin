@@ -1,5 +1,10 @@
 package aoc2022.day8
 
+import dev.johnvinh.getInput
+
+/**
+ * Get one specific tree's scenic score
+ */
 fun getScenicScore(grid: Array<IntArray>, row: Int, col: Int): Int {
     val thisNumber = grid[row][col]
 
@@ -41,4 +46,26 @@ fun getScenicScore(grid: Array<IntArray>, row: Int, col: Int): Int {
         rightViewDistance++
     }
     return topViewDistance * bottomViewDistance * leftViewDistance * rightViewDistance
+}
+
+/**
+ * Get the highest scenic score of the whole grid
+ */
+fun getMaxScenicScore(grid: Array<IntArray>): Int {
+    var max = 0
+    for (i in grid.indices) {
+        for (j in grid[i].indices) {
+            val scenicScore = getScenicScore(grid, i, j)
+            if (scenicScore > max) {
+                max = scenicScore
+            }
+        }
+    }
+    return max
+}
+
+fun main() {
+    val input = getInput()
+    val grid = convertToIntArray(input)
+    println(getMaxScenicScore(grid))
 }
