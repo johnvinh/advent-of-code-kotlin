@@ -3,21 +3,19 @@ package aoc2022.day8
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.api.BeforeEach
+import kotlin.test.BeforeTest
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class Part1KtTest {
-    lateinit var input: List<String>
-    lateinit var grid: Array<IntArray>
+    private var input: List<String> = arrayListOf("30373",
+            "25512",
+            "65332",
+            "33549",
+            "35390")
+    private lateinit var grid: Array<IntArray>
 
-    @BeforeAll
-    fun initializeInput() {
-        input = arrayListOf("30373" +
-                "25512" +
-                "65332" +
-                "33549" +
-                "35390")
+    @BeforeTest
+    fun init() {
         val columns = input[0].length
         val rows = input.size
         grid = Array(rows){IntArray(columns)}
@@ -32,6 +30,16 @@ class Part1KtTest {
     @Test
     fun isVisible_topLeft_True() {
         assertTrue(isVisible(grid, 1, 1))
+    }
+
+    @Test
+    fun isVisible_topMiddle_True() {
+        assertTrue(isVisible(grid, 1, 2))
+    }
+
+    @Test
+    fun isVisible_center_False() {
+        assertFalse(isVisible(grid, 2, 2))
     }
 
     @Test
