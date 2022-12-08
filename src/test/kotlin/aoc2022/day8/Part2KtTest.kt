@@ -30,4 +30,9 @@ class Part2KtTest {
     fun getScenicScore_FirstExample_4() {
         assertEquals(4, getScenicScore(grid, 1, 2))
     }
+
+    @Test
+    fun getScenicScore_SecondExample_8() {
+        assertEquals(8, getScenicScore(grid, 3, 2))
+    }
 }
