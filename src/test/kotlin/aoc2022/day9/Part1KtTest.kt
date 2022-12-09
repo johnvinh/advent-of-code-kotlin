@@ -52,6 +52,27 @@ class Part1KtTest {
     }
 
     @Test
+    fun moveHead_R4_53_43() {
+        val expected = arrayListOf(arrayListOf(5, 3), arrayListOf(4, 3))
+        val actual = moveHead('R', 4, 1, 3, 2, 4)
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun moveHead_D1_52_43() {
+        val expected = arrayListOf(arrayListOf(5, 2), arrayListOf(4, 3))
+        val actual = moveHead('D', 1, 5, 3, 4, 3)
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun moveHead_L5_02_12() {
+        val expected = arrayListOf(arrayListOf(0, 2), arrayListOf(1, 2))
+        val actual = moveHead('L', 5, 5, 2, 4, 3)
+        assertEquals(expected, actual)
+    }
+
+    @Test
     fun executeDirections_13() {
         assertEquals(13, executeDirections(input))
     }
