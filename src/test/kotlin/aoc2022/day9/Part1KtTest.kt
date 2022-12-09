@@ -23,7 +23,7 @@ class Part1KtTest {
     }
 
     @Test
-    fun moveHead_R4_() {
+    fun moveHead_R4_40_30() {
         val expected = arrayOf(intArrayOf(4, 0), intArrayOf(3, 0))
         val actual = moveHead('R', 4, 0, 0, 0, 0)
         assertEquals(expected, actual)
