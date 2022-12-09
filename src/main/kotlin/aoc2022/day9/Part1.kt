@@ -10,7 +10,7 @@ fun moveHead(direction: Char, magnitude: Int, headX: Int, headY: Int, tailX: Int
     var outHeadY = headY
     var outTailX = tailX
     var outTailY = tailY
-    
+
     when (direction) {
         'R' -> {
             val finalHeadX = outHeadX + magnitude

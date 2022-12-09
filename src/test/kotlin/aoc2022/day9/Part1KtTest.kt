@@ -34,4 +34,17 @@ class Part1KtTest {
             }
         }
     }
+
+    @Test
+    fun moveHead_U4_44_43() {
+        val expected = arrayOf(intArrayOf(4, 4), intArrayOf(4, 3))
+        val actual = moveHead('U', 4, 4, 0, 3, 0)
+        // assertEquals will compare the object address for arrays,
+        // so we need to compare item equality by doing this
+        for (i in actual.indices) {
+            for (j in actual[i].indices) {
+                assertEquals(expected[i][j], actual[i][j])
+            }
+        }
+    }
 }
