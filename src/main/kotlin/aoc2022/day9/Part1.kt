@@ -39,6 +39,22 @@ fun moveHead(direction: Char, magnitude: Int, headX: Int, headY: Int, tailX: Int
                 }
             }
         }
+        'L' -> {
+            val finalHeadX = outHeadX - magnitude
+            while (outHeadX != finalHeadX) {
+                if ((outTailX - outHeadX) == 2 && (outHeadY - outTailY) == 1) {
+                    outTailX -= 1
+                    outTailY += 1
+                } else if ((outTailX - outHeadX) == 2) {
+                    outTailX -= 1
+                }
+                outHeadX--
+                // Check one last time
+                if ((outHeadX == finalHeadX) && (outTailX - outHeadX) == 2) {
+                    outTailX--
+                }
+            }
+        }
     }
     return arrayListOf(arrayListOf(outHeadX, outHeadY), arrayListOf(outTailX, outTailY))
 }
