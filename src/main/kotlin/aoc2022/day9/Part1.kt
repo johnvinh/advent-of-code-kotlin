@@ -7,7 +7,7 @@ import kotlin.math.abs
  * Returns the grid after the movements
  * are made
  */
-fun moveHead(direction: Char, magnitude: Int, headX: Int, headY: Int, tailX: Int, tailY: Int): Array<IntArray> {
+fun moveHead(direction: Char, magnitude: Int, headX: Int, headY: Int, tailX: Int, tailY: Int): ArrayList<ArrayList<Int>> {
     var outHeadX = headX
     var outHeadY = headY
     var outTailX = tailX
@@ -33,5 +33,5 @@ fun moveHead(direction: Char, magnitude: Int, headX: Int, headY: Int, tailX: Int
             }
         }
     }
-    return arrayOf(intArrayOf(outHeadX, outHeadY), intArrayOf(outTailX, outTailY))
+    return arrayListOf(arrayListOf(outHeadX, outHeadY), arrayListOf(outTailX, outTailY))
 }
