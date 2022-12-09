@@ -1,5 +1,7 @@
 package aoc2022.day9
 
+import kotlin.math.abs
+
 /**
  * Move the head to a new position.
  * Returns the grid after the movements
@@ -18,6 +20,15 @@ fun moveHead(direction: Char, magnitude: Int, headX: Int, headY: Int, tailX: Int
                 outHeadX += 1
                 if (outHeadX != finalHeadX) {
                     outTailX += 1
+                }
+            }
+        }
+        'U' -> {
+            val finalHeadY = outHeadY + magnitude
+            while (outHeadY != finalHeadY) {
+                outHeadY += 1
+                if (abs(outHeadX - outTailX) > 1 && abs(outTailY - outTailX) > 1) {
+
                 }
             }
         }
