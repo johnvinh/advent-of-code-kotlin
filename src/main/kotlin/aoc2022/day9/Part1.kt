@@ -81,3 +81,12 @@ fun moveHead(direction: Char, magnitude: Int, headX: Int, headY: Int, tailX: Int
     }
     return arrayListOf(arrayListOf(outHeadX, outHeadY), arrayListOf(outTailX, outTailY))
 }
+
+/**
+ * Execute the list of instructions
+ * and return the number of positions the tail
+ * visited at least once
+ */
+fun executeDirections(input: List<String>): Int {
+    return 0
+}

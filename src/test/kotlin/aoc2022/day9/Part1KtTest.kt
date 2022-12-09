@@ -50,4 +50,9 @@ class Part1KtTest {
         val actual = moveHead('D', 1, 1, 4, 2, 4)
         assertEquals(expected, actual)
     }
+
+    @Test
+    fun executeDirections_13() {
+        assertEquals(13, executeDirections(input))
+    }
 }
