@@ -88,5 +88,31 @@ fun moveHead(direction: Char, magnitude: Int, headX: Int, headY: Int, tailX: Int
  * visited at least once
  */
 fun executeDirections(input: List<String>): Int {
-    return 0
+    // Keeps track of each (X, Y) position the tail has visited
+    val tailPositions = HashMap<Int, HashSet<Int>>()
+    var currentHeadX = 0
+    var currentHeadY = 0
+    var currentTailX = 0
+    var currentTailY = 0
+    for (line in input) {
+        val direction = line[0]
+        val magnitude = line[2].toString().toInt()
+        val newPositions = moveHead(direction, magnitude, currentHeadX, currentHeadY, currentTailX, currentTailY)
+        currentHeadX = newPositions[0][0]
+        currentHeadY = newPositions[0][1]
+        currentTailX = newPositions[1][0]
+        currentTailY = newPositions[1][1]
+        if (tailPositions.containsKey(currentTailX)) {
+            tailPositions[currentTailX]?.add(currentTailY)
+        } else {
+            tailPositions[currentTailX] = HashSet()
+            tailPositions[currentTailX]?.add(currentTailY)
+        }
+    }
+    var numPositions = 0
+    for (xValue in tailPositions.keys) {
+        val positions = tailPositions[xValue]
+        numPositions += positions?.size ?: 0
+    }
+    return numPositions
 }
