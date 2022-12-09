@@ -17,9 +17,16 @@ fun moveHead(direction: Char, magnitude: Int, headX: Int, headY: Int, tailX: Int
         'R' -> {
             val finalHeadX = outHeadX + magnitude
             while (outHeadX != finalHeadX) {
-                outHeadX += 1
-                if (outHeadX != finalHeadX) {
+                if (abs(outHeadX - outTailX) == 2 && abs(outTailY - outHeadY) == 1) {
                     outTailX += 1
+                    outTailY -= 1
+                } else if (abs(outHeadX - outTailX) == 2) {
+                    outTailX += 1
+                }
+                outHeadX++
+                // Check one last time
+                if ((outHeadX == finalHeadX) && abs(outHeadX - outTailX) == 2) {
+                    outTailX++
                 }
             }
         }
