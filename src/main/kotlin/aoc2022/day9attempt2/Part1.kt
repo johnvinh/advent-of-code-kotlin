@@ -1,5 +1,6 @@
 package aoc2022.day9attempt2
 
+import dev.johnvinh.getInput
 import kotlin.math.abs
 
 class Part1 {
@@ -15,7 +16,6 @@ class Part1 {
         val yDifference = headPos[1] - tailPos[1]
         // Not touching and not in same row or column
         // Move diagonally
-        println("X Difference: $xDifference, Y Difference: $yDifference")
         if ((abs(xDifference) == 2 || abs(yDifference) == 2) && (headPos[0] != tailPos[0] && headPos[1] != tailPos[1])) {
             if (yDifference > 0 && xDifference > 0) {
                 tailPos[0]++
@@ -79,4 +79,11 @@ class Part1 {
         }
         return numPositions
     }
+}
+
+fun main() {
+    val input = getInput()
+    val part1Obj = Part1()
+    part1Obj.executeInstructions(input)
+    println(part1Obj.getNumTailPositions())
 }
