@@ -32,4 +32,14 @@ class Part1 {
             }
         }
     }
+
+    fun getSixSignalStrengthSum(): Int {
+        val cycle_20 = 20 * valuesOfXPerTick[20]!!
+        val cycle_60 = 60 * valuesOfXPerTick[60]!!
+        val cycle_100 = 100 * valuesOfXPerTick[100]!!
+        val cycle_140 = 140 * valuesOfXPerTick[140]!!
+        val cycle_180 = 180 * valuesOfXPerTick[180]!!
+        val cycle_220 = 220 * valuesOfXPerTick[220]!!
+        return cycle_20 + cycle_60 + cycle_100 + cycle_140 + cycle_180 + cycle_220
+    }
 }
