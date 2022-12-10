@@ -1,5 +1,7 @@
 package aoc2022.day10
 
+import dev.johnvinh.getInput
+
 class Part1 {
     private var currentTick = 1
     private var x = 1
@@ -42,4 +44,11 @@ class Part1 {
         val cycle_220 = 220 * valuesOfXPerTick[220]!!
         return cycle_20 + cycle_60 + cycle_100 + cycle_140 + cycle_180 + cycle_220
     }
+}
+
+fun main() {
+    val lines = getInput()
+    val part1 = Part1()
+    part1.executeInstructions(lines)
+    println(part1.getSixSignalStrengthSum())
 }
