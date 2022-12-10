@@ -14,7 +14,10 @@ class Part1Test {
 
     @Test
     fun firstExample_Tick2_X1() {
-        val expected = 2
+        part1.noop()
+        part1.addx(3)
+        part1.addx(-5)
+        val expected = 1
         val actual = part1.valuesOfXPerTick[1]
         assertEquals(expected, actual)
     }
