@@ -181,8 +181,10 @@ class Part1 {
         var currentTailX = 0
         var currentTailY = 0
         for (line in input) {
-            val direction = line[0]
-            val magnitude = line[2].toString().toInt()
+            val parts = line.split(" ")
+            val direction = parts[0][0]
+            val magnitude = parts[1].toInt()
+
             val newPositions = moveHead(direction, magnitude, currentHeadX, currentHeadY, currentTailX, currentTailY)
             currentHeadX = newPositions[0][0]
             currentHeadY = newPositions[0][1]
