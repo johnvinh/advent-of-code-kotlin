@@ -25,4 +25,11 @@ class Part1KtTest {
         moveHead(head, 'D')
         assertEquals(arrayListOf(0, 0), head)
     }
+
+    @Test
+    fun moveInstruction_R4_head40_tail30() {
+        val expected = arrayListOf(arrayListOf(4, 0), arrayListOf(3, 0))
+        val actual = moveInstruction(arrayListOf(0, 0), arrayListOf(0, 0), 'R', 4)
+        assertEquals(expected, actual)
+    }
 }
