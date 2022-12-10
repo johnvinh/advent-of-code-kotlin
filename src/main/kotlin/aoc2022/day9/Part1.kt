@@ -31,6 +31,15 @@ class Part1 {
                     else if (abs(outHeadX - outTailX) == 2) {
                         outTailX += 1
                     }
+
+                    // Keep track of position
+                    if (positionsVisited.containsKey(outTailX)) {
+                        positionsVisited[outTailX]?.add(outTailY)
+                    } else {
+                        positionsVisited[outTailX] = HashSet()
+                        positionsVisited[outTailX]?.add(outTailY)
+                    }
+
                     outHeadX++
                     // Check one last time
                     if ((outHeadX == finalHeadX) && abs(outHeadX - outTailX) == 2) {
@@ -59,6 +68,15 @@ class Part1 {
                     else if ((outHeadY - outTailY) == 2) {
                         outTailY++
                     }
+
+                    // Keep track of position
+                    if (positionsVisited.containsKey(outTailX)) {
+                        positionsVisited[outTailX]?.add(outTailY)
+                    } else {
+                        positionsVisited[outTailX] = HashSet()
+                        positionsVisited[outTailX]?.add(outTailY)
+                    }
+
                     outHeadY++
                     // Check one last time
                     if ((outHeadY == finalHeadY) && (outHeadY - outTailY) == 2) {
@@ -87,6 +105,15 @@ class Part1 {
                     else if (abs(outHeadX - outTailX) == 2) {
                         outTailX -= 1
                     }
+
+                    // Keep track of position
+                    if (positionsVisited.containsKey(outTailX)) {
+                        positionsVisited[outTailX]?.add(outTailY)
+                    } else {
+                        positionsVisited[outTailX] = HashSet()
+                        positionsVisited[outTailX]?.add(outTailY)
+                    }
+
                     outHeadX--
                     if ((outHeadX == finalHeadX) && abs(outHeadX - outTailX) == 2) {
                         outTailX--
@@ -115,6 +142,15 @@ class Part1 {
                         outTailY--
                     }
                     outHeadY--
+
+                    // Keep track of position
+                    if (positionsVisited.containsKey(outTailX)) {
+                        positionsVisited[outTailX]?.add(outTailY)
+                    } else {
+                        positionsVisited[outTailX] = HashSet()
+                        positionsVisited[outTailX]?.add(outTailY)
+                    }
+
                     // Check one last time
                     if ((outHeadY == finalHeadY) && (outTailY - outHeadY) == 2) {
                         outTailY++
@@ -129,11 +165,6 @@ class Part1 {
                     }
                 }
             }
-        }
-        var numPositionsVisited = 0
-        for (xValue in positionsVisited.keys) {
-            val yValues = positionsVisited[xValue]
-            numPositionsVisited += yValues?.size ?: 0
         }
         return arrayListOf(arrayListOf(outHeadX, outHeadY), arrayListOf(outTailX, outTailY))
     }
@@ -162,6 +193,14 @@ class Part1 {
         for (xValue in positionsVisited.keys) {
             numTailPositions += positionsVisited[xValue]?.size ?: 0
         }
+        println("Final Tail Position: ($currentTailX, $currentTailY)")
+        println("Final Head Position: ($currentHeadX, $currentHeadY)")
         return numTailPositions
     }
+}
+
+fun main() {
+    val input = getInput()
+    val part1 = Part1()
+    println(part1.executeDirections(input))
 }
