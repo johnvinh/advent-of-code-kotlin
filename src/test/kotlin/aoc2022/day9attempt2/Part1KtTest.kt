@@ -14,9 +14,15 @@ class Part1KtTest {
     }
 
     @Test
-    fun moveHead_R_40() {
+    fun moveHead_Examples() {
         val head = arrayListOf(0, 0)
         moveHead(head, 'R')
         assertEquals(arrayListOf(1, 0), head)
+        moveHead(head, 'U')
+        assertEquals(arrayListOf(1, 1), head)
+        moveHead(head, 'L')
+        assertEquals(arrayListOf(0, 1), head)
+        moveHead(head, 'D')
+        assertEquals(arrayListOf(0, 0), head)
     }
 }
