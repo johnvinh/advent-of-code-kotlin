@@ -73,6 +73,13 @@ class Part1KtTest {
     }
 
     @Test
+    fun moveHead_R2_22_12() {
+        val expected = arrayListOf(arrayListOf(2, 2), arrayListOf(1, 2))
+        val actual = moveHead('R', 2, 0, 2, 1, 2)
+        assertEquals(expected, actual)
+    }
+
+    @Test
     fun executeDirections_13() {
         assertEquals(13, executeDirections(input))
     }
