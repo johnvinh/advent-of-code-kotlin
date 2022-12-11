@@ -37,4 +37,13 @@ class Monkey(val items: ArrayList<Int>, private val operation: String,
         val divisor = match?.groups?.get(1)?.value?.toInt() ?: 1
         return (item % divisor) == 0
     }
+
+    fun nextMonkeyToThowTo(item: Int): Int {
+        val trueMonkey = trueAction.split(" ")[3].toInt()
+        val falseMonkey = falseAction.split(" ")[3].toInt()
+        if (performTest(item)) {
+            return trueMonkey
+        }
+        return falseMonkey
+    }
 }

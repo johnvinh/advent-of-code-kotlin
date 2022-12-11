@@ -33,4 +33,9 @@ class MonkeyTest {
     fun performTest_46_True() {
         assertTrue(monkey.performTest(46))
     }
+
+    @Test
+    fun nextMonkeyToThowTo_500_3() {
+        assertEquals(3, monkey.nextMonkeyToThowTo(500))
+    }
 }
