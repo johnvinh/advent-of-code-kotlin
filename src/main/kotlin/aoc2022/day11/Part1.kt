@@ -1,13 +1,21 @@
 package aoc2022.day11
 
 import dev.johnvinh.getInput
+import java.math.BigInteger
 import kotlin.math.floor
 
-class Monkey(val items: ArrayList<Int>, private val operation: String,
+class Monkey(val items: ArrayList<BigInteger>, private val operation: String,
              val test: String, val trueAction: String, val falseAction: String) {
     var numInspections = 0
+    var divisor = 0
 
-    fun getItemWorryIncrease(item: Int): Int {
+    fun initDivisor() {
+        val testRegex = Regex("^divisible by ([0-9]+)$")
+        val match = testRegex.matchEntire(test)
+        val divisor = match?.groups?.get(1)?.value?.toInt() ?: 1
+        this.divisor = divisor
+    }
+    fun getItemWorryIncrease(item: BigInteger): BigInteger {
         val operationRegex = Regex("^new = old ([+*]) (.+)$")
         val match = operationRegex.find(operation)
         val operator = match?.groups?.get(1)?.value
@@ -16,32 +24,39 @@ class Monkey(val items: ArrayList<Int>, private val operation: String,
             "old" -> {
                 item
             }
-            else -> operand?.toInt()!!
+            //else -> operand?.toInt()!!
+            else -> {
+                if (operand != null) {
+                    BigInteger(operand)
+                } else {
+                    BigInteger("0")
+                }
+            }
         }
         // Could be + or *
         when (operator) {
             "+" -> {
-                return item + actualOperand
+                return item.add(actualOperand)
             }
             "*" -> {
-                return item * actualOperand
+                return item.multiply(actualOperand)
             }
         }
-        return -1
+        return BigInteger.valueOf(-1)
     }
 
-    fun getItemWorryDecrease(item: Int): Int {
-        return floor((item / 3).toDouble()).toInt()
+    fun getItemWorryDecrease(item: BigInteger): BigInteger {
+        return item.divide(BigInteger.valueOf(3))
     }
 
-    fun performTest(item: Int): Boolean {
+    fun performTest(item: BigInteger): Boolean {
         val testRegex = Regex("^divisible by ([0-9]+)$")
         val match = testRegex.matchEntire(test)
         val divisor = match?.groups?.get(1)?.value?.toInt() ?: 1
-        return (item % divisor) == 0
+        return item.mod(BigInteger.valueOf(divisor.toLong())) == BigInteger.ZERO
     }
 
-    fun nextMonkeyToThowTo(item: Int): Int {
+    fun nextMonkeyToThowTo(item: BigInteger): Int {
         val trueMonkey = trueAction.split(" ")[3].toInt()
         val falseMonkey = falseAction.split(" ")[3].toInt()
         if (performTest(item)) {
@@ -54,7 +69,7 @@ class Monkey(val items: ArrayList<Int>, private val operation: String,
 fun createMonkeyList(input: List<String>): ArrayList<Monkey> {
     val out = ArrayList<Monkey>()
     var startingItems: String = ""
-    var startingItemsList: ArrayList<Int>
+    var startingItemsList: ArrayList<BigInteger>
     var operation: String = ""
     var test: String = ""
     var trueAction: String = ""
@@ -71,7 +86,7 @@ fun createMonkeyList(input: List<String>): ArrayList<Monkey> {
             val startingItemParts = startingItems.split(", ")
             startingItemsList = ArrayList()
             for (part in startingItemParts) {
-                startingItemsList.add(part.toInt())
+                startingItemsList.add(BigInteger(part))
             }
             out.add(
                 Monkey(
@@ -87,7 +102,7 @@ fun createMonkeyList(input: List<String>): ArrayList<Monkey> {
             val startingItemParts = startingItems.split(", ")
             startingItemsList = ArrayList()
             for (part in startingItemParts) {
-                startingItemsList.add(part.toInt())
+                startingItemsList.add(BigInteger(part))
             }
             out.add(
                 Monkey(
@@ -124,6 +139,14 @@ fun createMonkeyList(input: List<String>): ArrayList<Monkey> {
 }
 
 fun playRounds(monkeys: ArrayList<Monkey>, numRounds: Int) {
+    var lcm = BigInteger.valueOf(1)
+    for (i in monkeys.indices) {
+        val monkey = monkeys[i]
+        monkey.initDivisor()
+        val numInspectionsBigInt = BigInteger.valueOf(monkey.divisor.toLong())
+        lcm = lcm.multiply(numInspectionsBigInt)
+    }
+
     // n rounds
     for (n in 1..numRounds) {
         for (i in monkeys.indices) {
@@ -138,7 +161,7 @@ fun playRounds(monkeys: ArrayList<Monkey>, numRounds: Int) {
                 newWorryLevel = if (numRounds == 20) {
                     monkey.getItemWorryDecrease(newWorryLevel)
                 } else {
-                    newWorryLevel
+                    newWorryLevel.mod(lcm)
                 }
                 // Get new monkey to pass to
                 val newMonkey = monkey.nextMonkeyToThowTo(newWorryLevel)
