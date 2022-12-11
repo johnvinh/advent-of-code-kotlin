@@ -38,4 +38,18 @@ class MonkeyTest {
     fun nextMonkeyToThowTo_500_3() {
         assertEquals(3, monkey.nextMonkeyToThowTo(500))
     }
+
+    @Test
+    fun nextMonkeyToThrowTo_25_1() {
+        val newMonkey = Monkey(
+            arrayListOf(74),
+            "new = old + 3",
+            "divisible by 17",
+            "throw to monkey 0",
+            "throw to monkey 1"
+        )
+        var newWorry = newMonkey.getItemWorryIncrease(newMonkey.items[0])
+        newWorry = newMonkey.getItemWorryDecrease(newWorry)
+        assertEquals(1, newMonkey.nextMonkeyToThowTo(newWorry))
+    }
 }
