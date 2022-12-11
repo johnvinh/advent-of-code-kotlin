@@ -23,4 +23,9 @@ class MonkeyTest {
         val actual = monkey.getItemWorryIncrease(monkey.items[0])
         assertEquals(500, monkey.getItemWorryDecrease(actual))
     }
+
+    @Test
+    fun performTest_500_False() {
+        assertFalse(monkey.performTest(500))
+    }
 }

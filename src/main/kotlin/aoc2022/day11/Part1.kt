@@ -30,4 +30,8 @@ class Monkey(val items: ArrayList<Int>, private val operation: String,
     fun getItemWorryDecrease(item: Int): Int {
         return floor((item / 3).toDouble()).toInt()
     }
+
+    fun performTest(item: Int): Boolean {
+        return false
+    }
 }
