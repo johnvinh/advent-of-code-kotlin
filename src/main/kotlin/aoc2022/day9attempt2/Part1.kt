@@ -8,6 +8,7 @@ import kotlin.math.abs
  * Used for easily tracking the positions
  * the tail has been in.
  */
+@Deprecated("This is the first, unfinished version.", ReplaceWith("aoc2022.day9attempt2.Part1"))
 class Part1 {
     /**
      * A HashMap with an X value as the key and a Y value as
