@@ -123,11 +123,9 @@ fun createMonkeyList(input: List<String>): ArrayList<Monkey> {
     return out
 }
 
-fun main() {
-    val input = getInput()
-    val monkeys = createMonkeyList(input)
-    // 20 rounds
-    for (n in 1..20) {
+fun playRounds(monkeys: ArrayList<Monkey>, numRounds: Int) {
+    // n rounds
+    for (n in 1..numRounds) {
         for (i in monkeys.indices) {
             val monkey = monkeys[i]
             // A list of indices to remove later
@@ -148,7 +146,12 @@ fun main() {
             monkey.items.clear()
         }
     }
+}
 
+fun main() {
+    val input = getInput()
+    val monkeys = createMonkeyList(input)
+    playRounds(monkeys, 20)
     monkeys.sortByDescending{monkey -> monkey.numInspections}
     println(monkeys[0].numInspections * monkeys[1].numInspections)
 }
