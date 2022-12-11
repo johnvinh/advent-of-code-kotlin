@@ -1,5 +1,7 @@
 package aoc2022.day11
 
+import kotlin.math.floor
+
 class Monkey(val items: ArrayList<Int>, private val operation: String,
              val test: String, val trueAction: String, val falseAction: String) {
     fun getItemWorryIncrease(item: Int): Int {
@@ -23,5 +25,9 @@ class Monkey(val items: ArrayList<Int>, private val operation: String,
             }
         }
         return -1
+    }
+
+    fun getItemWorryDecrease(item: Int): Int {
+        return floor((item / 3).toDouble()).toInt()
     }
 }

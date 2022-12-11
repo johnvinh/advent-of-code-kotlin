@@ -17,4 +17,10 @@ class MonkeyTest {
     fun getItemWorryIncrease_79_1501() {
         assertEquals(1501, monkey.getItemWorryIncrease(monkey.items[0]))
     }
+
+    @Test
+    fun getItemWorryDecrease_1501_500() {
+        val actual = monkey.getItemWorryIncrease(monkey.items[0])
+        assertEquals(500, monkey.getItemWorryDecrease(actual))
+    }
 }
