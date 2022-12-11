@@ -28,4 +28,9 @@ class MonkeyTest {
     fun performTest_500_False() {
         assertFalse(monkey.performTest(500))
     }
+
+    @Test
+    fun performTest_46_True() {
+        assertTrue(monkey.performTest(46))
+    }
 }
