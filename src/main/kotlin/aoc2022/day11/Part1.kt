@@ -5,6 +5,8 @@ import kotlin.math.floor
 
 class Monkey(val items: ArrayList<Int>, private val operation: String,
              val test: String, val trueAction: String, val falseAction: String) {
+    var numInspections = 0
+
     fun getItemWorryIncrease(item: Int): Int {
         val operationRegex = Regex("^new = old ([+*]) (.+)$")
         val match = operationRegex.find(operation)
@@ -60,7 +62,28 @@ fun createMonkeyList(input: List<String>): ArrayList<Monkey> {
 
     for (i in input.indices) {
         val line = input[i]
-        if (line == "" || i == (input.size - 1)) {
+        // Make sure the final monkey in the file gets created
+        if (i == (input.size - 1)) {
+            val ifFalseRegex = Regex("If false: (.+)$")
+            val match = ifFalseRegex.find(line)
+            falseAction = match?.groups?.get(1)?.value.toString()
+
+            val startingItemParts = startingItems.split(", ")
+            startingItemsList = ArrayList()
+            for (part in startingItemParts) {
+                startingItemsList.add(part.toInt())
+            }
+            out.add(
+                Monkey(
+                    startingItemsList,
+                    operation,
+                    test,
+                    trueAction,
+                    falseAction
+                )
+            )
+        }
+        else if (line == "") {
             val startingItemParts = startingItems.split(", ")
             startingItemsList = ArrayList()
             for (part in startingItemParts) {
@@ -103,8 +126,29 @@ fun createMonkeyList(input: List<String>): ArrayList<Monkey> {
 fun main() {
     val input = getInput()
     val monkeys = createMonkeyList(input)
-    for (i in monkeys.indices) {
-        println("Monkey $i")
-        println("Starting items: ${monkeys[i].items}")
+    // 20 rounds
+    for (n in 1..20) {
+        for (i in monkeys.indices) {
+            val monkey = monkeys[i]
+            // A list of indices to remove later
+            for (j in monkey.items.indices) {
+                val item = monkey.items[j]
+                // Inspection begins
+                var newWorryLevel = monkey.getItemWorryIncrease(item)
+                // Monkey gets bored
+                newWorryLevel = monkey.getItemWorryDecrease(newWorryLevel)
+                // Get new monkey to pass to
+                val newMonkey = monkey.nextMonkeyToThowTo(newWorryLevel)
+                // Pass to new monkey
+                monkeys[newMonkey].items.add(newWorryLevel)
+                // Finally, increment inspections
+                monkey.numInspections++
+            }
+            // Remove the items
+            monkey.items.clear()
+        }
     }
+
+    monkeys.sortByDescending{monkey -> monkey.numInspections}
+    println(monkeys[0].numInspections * monkeys[1].numInspections)
 }
