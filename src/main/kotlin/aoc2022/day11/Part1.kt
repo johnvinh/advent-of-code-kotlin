@@ -134,7 +134,12 @@ fun playRounds(monkeys: ArrayList<Monkey>, numRounds: Int) {
                 // Inspection begins
                 var newWorryLevel = monkey.getItemWorryIncrease(item)
                 // Monkey gets bored
-                newWorryLevel = monkey.getItemWorryDecrease(newWorryLevel)
+                //newWorryLevel = monkey.getItemWorryDecrease(newWorryLevel)
+                newWorryLevel = if (numRounds == 20) {
+                    monkey.getItemWorryDecrease(newWorryLevel)
+                } else {
+                    newWorryLevel
+                }
                 // Get new monkey to pass to
                 val newMonkey = monkey.nextMonkeyToThowTo(newWorryLevel)
                 // Pass to new monkey
