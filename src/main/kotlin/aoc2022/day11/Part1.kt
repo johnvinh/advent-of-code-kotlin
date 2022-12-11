@@ -32,6 +32,9 @@ class Monkey(val items: ArrayList<Int>, private val operation: String,
     }
 
     fun performTest(item: Int): Boolean {
-        return false
+        val testRegex = Regex("^divisible by ([0-9]+)$")
+        val match = testRegex.matchEntire(test)
+        val divisor = match?.groups?.get(1)?.value?.toInt() ?: 1
+        return (item % divisor) == 0
     }
 }
