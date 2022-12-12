@@ -1,6 +1,6 @@
 package day12
 
-fun getStartOrEndLocation(start: Boolean, grid: Array<Array<Char>>, row: Int, col: Int): Array<Int> {
+fun getStartOrEndLocation(start: Boolean, grid: Array<String>, row: Int, col: Int): Array<Int> {
     val searchTarget = if (start) {
         'S'
     } else {
@@ -14,4 +14,8 @@ fun getStartOrEndLocation(start: Boolean, grid: Array<Array<Char>>, row: Int, co
         }
     }
     return arrayOf(-1, -1)
+}
+
+fun getShortestPathDistance(grid: Array<String>): Int {
+    return 0
 }
