@@ -1,13 +1,14 @@
 package day12
 
-fun getNextLocation(row: Int, col: Int): Array<Int> {
-    return arrayOf(row, col)
-}
-
-fun getStartLocation(grid: Array<Array<Char>>, row: Int, col: Int): Array<Int> {
+fun getStartOrEndLocation(start: Boolean, grid: Array<Array<Char>>, row: Int, col: Int): Array<Int> {
+    val searchTarget = if (start) {
+        'S'
+    } else {
+        'E'
+    }
     for (i in grid.indices) {
         for (j in grid[i].indices) {
-            if (grid[i][j] == 'S') {
+            if (grid[i][j] == searchTarget) {
                 return arrayOf(i, j)
             }
         }
