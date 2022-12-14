@@ -10,3 +10,8 @@ fun isInRightOrder(num1: Int, num2: Int): Array<Boolean> {
     }
     return arrayOf(false, false) // incorrect order
 }
+
+fun isInRightOrder(list1: MutableList<Int>, list2: MutableList<Int>) {
+    var i = 0
+    
+}
