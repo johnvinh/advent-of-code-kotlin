@@ -1,5 +1,6 @@
 package day12
 
+import aoc2022.day12.getShortestPathDistance
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 

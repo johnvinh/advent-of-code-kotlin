@@ -1,4 +1,4 @@
-package day12
+package aoc2022.day12
 
 import dev.johnvinh.getInput
 import java.lang.IndexOutOfBoundsException
