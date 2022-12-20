@@ -6,13 +6,16 @@ fun isANiceString2(s: String): Boolean {
     var hasRepeatingPair = false
     var repeatingLetterOneInbetween = false
     val repeatingIndices = HashSet<Int>()
+    var numRepeats = 0
 
     for (i in s.indices) {
         if ((i != s.length-1) && (s[i] == s[i + 1]) && !hasRepeatingPair) {
+            numRepeats++
             hasRepeatingPair = true
             repeatingIndices.add(i)
             repeatingIndices.add(i + 1)
         } else if ((i != s.length-1) && (s[i] == s[i + 1]) && hasRepeatingPair) {
+            numRepeats++
             if (repeatingIndices.contains(i) || repeatingIndices.contains(i + 1)) {
                 return false
             }
@@ -22,7 +25,7 @@ fun isANiceString2(s: String): Boolean {
             repeatingLetterOneInbetween = true
         }
     }
-    return hasRepeatingPair && repeatingLetterOneInbetween
+    return (numRepeats >= 2) && repeatingLetterOneInbetween
 }
 
 fun main() {
