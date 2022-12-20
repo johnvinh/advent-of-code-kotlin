@@ -18,7 +18,7 @@ fun isANiceString2(s: String): Boolean {
             }
         }
 
-        if (((i + 2) < s.length) && (s[i] != s[i + 1]) && (s[i] == s[i + 2])) {
+        if (((i + 2) < s.length) && (s[i] == s[i + 2])) {
             repeatingLetterOneInbetween = true
         }
     }
