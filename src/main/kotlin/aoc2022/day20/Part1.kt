@@ -8,6 +8,6 @@ fun createList(input: List<String>): IntArray {
     return out
 }
 
-fun moveNumber(indice: Int, numbers: List<Int>) {
+fun moveNumber(indice: Int, numbers: IntArray) {
 
 }
