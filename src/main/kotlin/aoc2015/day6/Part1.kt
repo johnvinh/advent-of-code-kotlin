@@ -17,7 +17,29 @@ fun main() {
     val lights = Array(1000){BooleanArray(1000){false} }
     for (line in lines) {
         val range = parseRange(line)
-        println("Range: (${range[0][0]}, ${range[0][1]}) to (${range[1][0]}, ${range[1][1]})")
+        // Row
+        for (i in range[0][0]..range[1][0]) {
+            // Col
+            for (j in range[0][1]..range[1][1]) {
+                if (line.contains("turn on")) {
+                    lights[i][j] = true
+                } else if (line.contains("turn off")) {
+                    lights[i][j] = false
+                } else {
+                    lights[i][j] = !(lights[i][j])
+                }
+            }
+        }
     }
 
+    // Get number of lights still on
+    var numLit = 0
+    for (i in lights.indices) {
+        for (j in lights[i].indices) {
+            if (lights[i][j]) {
+                numLit++
+            }
+        }
+    }
+    println("$numLit lights still lit")
 }
