@@ -12,7 +12,7 @@ fun parseRange(line: String): Array<IntArray> {
     return arrayOf(intArrayOf(lowerRow, lowerCol), intArrayOf(upperRow, upperCol))
 }
 
-fun parseInstruction(line: String, range: Array<IntArray>, lights: Array<BooleanArray>, row: Int, col: Int) {
+fun parseInstruction(line: String, lights: Array<BooleanArray>, row: Int, col: Int) {
     if (line.contains("turn on")) {
         lights[row][col] = true
     } else if (line.contains("turn off")) {
@@ -31,7 +31,7 @@ fun main() {
         for (i in range[0][0]..range[1][0]) {
             // Col
             for (j in range[0][1]..range[1][1]) {
-                parseInstruction(line, range, lights, i, j)
+                parseInstruction(line, lights, i, j)
             }
         }
     }

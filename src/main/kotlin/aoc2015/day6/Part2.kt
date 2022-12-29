@@ -2,7 +2,7 @@ package aoc2015.day6
 
 import dev.johnvinh.getInput
 
-fun parseInstruction2(line: String, range: Array<IntArray>, lights: Array<IntArray>, row: Int, col: Int) {
+fun parseInstruction2(line: String, lights: Array<IntArray>, row: Int, col: Int) {
     if (line.contains("turn on")) {
         lights[row][col]++
     } else if (line.contains("turn off")) {
@@ -23,7 +23,7 @@ fun main() {
         for (i in range[0][0]..range[1][0]) {
             // Col
             for (j in range[0][1]..range[1][1]) {
-                parseInstruction2(line, range, lights, i, j)
+                parseInstruction2(line, lights, i, j)
             }
         }
     }
