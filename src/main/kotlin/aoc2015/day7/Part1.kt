@@ -40,14 +40,22 @@ fun calculateSignalValue(lines: List<String>, wire: String, wires: HashMap<Strin
                 val operand2 = andMatch.groups[2]?.value!!
 
                 val operand1Value: Int = if (operand1.toIntOrNull() == null) {
-                    calculateSignalValue(lines, operand1, wires)
+                    if (wires.containsKey(operand1)) {
+                        wires[operand1]!!
+                    } else {
+                        calculateSignalValue(lines, operand1, wires)
+                    }
                 } else {
                     operand1.toInt()
                 }
                 wires[operand1] = operand1Value
 
                 val operand2Value: Int = if (operand2.toIntOrNull() == null) {
-                    calculateSignalValue(lines, operand2, wires)
+                    if (wires.containsKey(operand2)) {
+                        wires[operand2]!!
+                    } else {
+                        calculateSignalValue(lines, operand2, wires)
+                    }
                 } else {
                     operand2.toInt()
                 }
@@ -61,14 +69,22 @@ fun calculateSignalValue(lines: List<String>, wire: String, wires: HashMap<Strin
                 val operand2 = orMatch.groups[2]?.value!!
 
                 val operand1Value: Int = if (operand1.toIntOrNull() == null) {
-                    calculateSignalValue(lines, operand1, wires)
+                    if (wires.containsKey(operand1)) {
+                        wires[operand1]!!
+                    } else {
+                        calculateSignalValue(lines, operand1, wires)
+                    }
                 } else {
                     operand1.toInt()
                 }
                 wires[operand1] = operand1Value
 
                 val operand2Value: Int = if (operand2.toIntOrNull() == null) {
-                    calculateSignalValue(lines, operand2, wires)
+                    if (wires.containsKey(operand2)) {
+                        wires[operand2]!!
+                    } else {
+                        calculateSignalValue(lines, operand2, wires)
+                    }
                 } else {
                     operand2.toInt()
                 }
@@ -82,14 +98,22 @@ fun calculateSignalValue(lines: List<String>, wire: String, wires: HashMap<Strin
                 val operand2 = lshiftMatch.groups[2]?.value!!
 
                 val operand1Value: Int = if (operand1.toIntOrNull() == null) {
-                    calculateSignalValue(lines, operand1, wires)
+                    if (wires.containsKey(operand1)) {
+                        wires[operand1]!!
+                    } else {
+                        calculateSignalValue(lines, operand1, wires)
+                    }
                 } else {
                     operand1.toInt()
                 }
                 wires[operand1] = operand1Value
 
                 val operand2Value: Int = if (operand2.toIntOrNull() == null) {
-                    calculateSignalValue(lines, operand2, wires)
+                    if (wires.containsKey(operand2)) {
+                        wires[operand2]!!
+                    } else {
+                        calculateSignalValue(lines, operand2, wires)
+                    }
                 } else {
                     operand2.toInt()
                 }
@@ -103,16 +127,26 @@ fun calculateSignalValue(lines: List<String>, wire: String, wires: HashMap<Strin
                 val operand2 = rshiftMatch.groups[2]?.value!!
 
                 val operand1Value: Int = if (operand1.toIntOrNull() == null) {
-                    calculateSignalValue(lines, operand1, wires)
+                    if (wires.containsKey(operand1)) {
+                        wires[operand1]!!
+                    } else {
+                        calculateSignalValue(lines, operand1, wires)
+                    }
                 } else {
                     operand1.toInt()
                 }
+                wires[operand1] = operand1Value
 
                 val operand2Value: Int = if (operand2.toIntOrNull() == null) {
-                    calculateSignalValue(lines, operand2, wires)
+                    if (wires.containsKey(operand2)) {
+                        wires[operand2]!!
+                    } else {
+                        calculateSignalValue(lines, operand2, wires)
+                    }
                 } else {
                     operand2.toInt()
                 }
+                wires[operand2] = operand2Value
 
                 val finalResult = operand1Value shr operand2Value
                 wires[wire] = finalResult
@@ -120,7 +154,11 @@ fun calculateSignalValue(lines: List<String>, wire: String, wires: HashMap<Strin
             } else if (notMatch != null) {
                 val operand = notMatch.groups[1]?.value!!
                 val value = if (operand.toIntOrNull() == null) {
-                    calculateSignalValue(lines, operand, wires)
+                    if (wires.containsKey(operand)) {
+                        wires[operand]!!
+                    } else {
+                        calculateSignalValue(lines, operand, wires)
+                    }
                 } else {
                     operand.toInt()
                 }
