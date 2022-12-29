@@ -16,6 +16,10 @@ fun initializeMap(lines: List<String>): HashMap<String, Int> {
     return out
 }
 
+fun calculateSignalValue(wire: String, wires: HashMap<String, Int>): Int {
+    return 0
+}
+
 fun main() {
     val lines = getInput()
     val wires = initializeMap(lines)
