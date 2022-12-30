@@ -1,9 +1,10 @@
 package aoc2015.day7
 
 import dev.johnvinh.getInput
+import java.lang.IllegalArgumentException
 
 enum class Operation {
-    AND, OR, LSHIFT, RSHIFT
+    AND, OR, LSHIFT, RSHIFT, NOT, CONSTANT
 }
 
 class Part1(private val lines: List<String>) {
@@ -57,6 +58,34 @@ class Part1(private val lines: List<String>) {
         return finalResult
     }
 
+    private fun calculateUnaryOperation(match: MatchResult, wire: String, operation: Operation): Int {
+        val operand = match.groups[1]?.value!!
+        val operandValue: Int = if (operand.toIntOrNull() == null) {
+            if (wires.containsKey(operand)) {
+                wires[operand]!!
+            } else {
+                calculateSignalValue(operand)
+            }
+        } else {
+            operand.toInt()
+        }
+
+        return when (operation) {
+            Operation.CONSTANT -> {
+                wires[operand] = operandValue
+                operandValue
+            }
+
+            Operation.NOT -> {
+                val finalResult = 65535 + operandValue.inv() + 1
+                wires[wire] = finalResult
+                finalResult
+            }
+
+            else -> throw IllegalArgumentException()
+        }
+    }
+
     fun calculateSignalValue(wire: String): Int {
         if (wires.containsKey(wire) && wires[wire] != null) {
             return wires[wire]!!
@@ -80,18 +109,7 @@ class Part1(private val lines: List<String>) {
                 val notMatch = notRegex.matchEntire(line)
                 val constantMatch = constantRegex.matchEntire(line)
                 if (constantMatch != null) {
-                    val operand = constantMatch.groups[1]?.value!!
-                    val operandValue: Int = if (operand.toIntOrNull() == null) {
-                        if (wires.containsKey(operand)) {
-                            wires[operand]!!
-                        } else {
-                            calculateSignalValue(operand)
-                        }
-                    } else {
-                        operand.toInt()
-                    }
-                    wires[operand] = operandValue
-                    return operandValue
+                    return calculateUnaryOperation(constantMatch, wire, Operation.CONSTANT)
                 } else if (andMatch != null) {
                     return calculateBinaryOperationResult(andMatch, wire, Operation.AND)
                 } else if (orMatch != null) {
@@ -101,21 +119,7 @@ class Part1(private val lines: List<String>) {
                 } else if (rshiftMatch != null) {
                     return calculateBinaryOperationResult(rshiftMatch, wire, Operation.RSHIFT)
                 } else if (notMatch != null) {
-                    val operand = notMatch.groups[1]?.value!!
-                    val value = if (operand.toIntOrNull() == null) {
-                        if (wires.containsKey(operand)) {
-                            wires[operand]!!
-                        } else {
-                            calculateSignalValue(operand)
-                        }
-                    } else {
-                        operand.toInt()
-                    }
-                    wires[operand] = value
-
-                    val finalResult = 65535 + value.inv() + 1
-                    wires[wire] = finalResult
-                    return finalResult
+                    return calculateUnaryOperation(notMatch, wire, Operation.NOT)
                 }
             }
         }
