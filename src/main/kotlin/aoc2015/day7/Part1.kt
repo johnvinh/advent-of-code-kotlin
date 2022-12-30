@@ -52,7 +52,8 @@ class Part1(private val lines: List<String>) {
             Operation.AND -> operand1Value and operand2Value
             Operation.OR -> operand1Value or operand2Value
             Operation.LSHIFT -> operand1Value shl operand2Value
-            else -> operand1Value shr operand2Value
+            Operation.RSHIFT -> operand1Value shr operand2Value
+            else -> throw IllegalArgumentException()
         }
         wires[wire] = finalResult
         return finalResult
