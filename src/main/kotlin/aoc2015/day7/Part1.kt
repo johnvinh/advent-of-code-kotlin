@@ -2,6 +2,10 @@ package aoc2015.day7
 
 import dev.johnvinh.getInput
 
+enum class Operation {
+    AND, OR, LSHIFT, RSHIFT
+}
+
 class Part1(private val lines: List<String>) {
     val wires = HashMap<String, Int>()
 
@@ -15,6 +19,42 @@ class Part1(private val lines: List<String>) {
                 wires[wire] = signal
             }
         }
+    }
+
+    private fun calculateBinaryOperationResult(match: MatchResult, wire: String, operation: Operation): Int {
+        val operand1 = match.groups[1]?.value!!
+        val operand2 = match.groups[2]?.value!!
+
+        val operand1Value: Int = if (operand1.toIntOrNull() == null) {
+            if (wires.containsKey(operand1)) {
+                wires[operand1]!!
+            } else {
+                calculateSignalValue(operand1)
+            }
+        } else {
+            operand1.toInt()
+        }
+        wires[operand1] = operand1Value
+
+        val operand2Value: Int = if (operand2.toIntOrNull() == null) {
+            if (wires.containsKey(operand2)) {
+                wires[operand2]!!
+            } else {
+                calculateSignalValue(operand2)
+            }
+        } else {
+            operand2.toInt()
+        }
+        wires[operand2] = operand2Value
+
+        val finalResult = when (operation) {
+            Operation.AND -> operand1Value and operand2Value
+            Operation.OR -> operand1Value or operand2Value
+            Operation.LSHIFT -> operand1Value shl operand2Value
+            else -> operand1Value shr operand2Value
+        }
+        wires[wire] = finalResult
+        return finalResult
     }
 
     fun calculateSignalValue(wire: String): Int {
@@ -53,121 +93,13 @@ class Part1(private val lines: List<String>) {
                     wires[operand] = operandValue
                     return operandValue
                 } else if (andMatch != null) {
-                    val operand1 = andMatch.groups[1]?.value!!
-                    val operand2 = andMatch.groups[2]?.value!!
-
-                    val operand1Value: Int = if (operand1.toIntOrNull() == null) {
-                        if (wires.containsKey(operand1)) {
-                            wires[operand1]!!
-                        } else {
-                            calculateSignalValue(operand1)
-                        }
-                    } else {
-                        operand1.toInt()
-                    }
-                    wires[operand1] = operand1Value
-
-                    val operand2Value: Int = if (operand2.toIntOrNull() == null) {
-                        if (wires.containsKey(operand2)) {
-                            wires[operand2]!!
-                        } else {
-                            calculateSignalValue(operand2)
-                        }
-                    } else {
-                        operand2.toInt()
-                    }
-                    wires[operand2] = operand2Value
-
-                    val finalResult = operand1Value and operand2Value
-                    wires[wire] = finalResult
-                    return finalResult
+                    return calculateBinaryOperationResult(andMatch, wire, Operation.AND)
                 } else if (orMatch != null) {
-                    val operand1 = orMatch.groups[1]?.value!!
-                    val operand2 = orMatch.groups[2]?.value!!
-
-                    val operand1Value: Int = if (operand1.toIntOrNull() == null) {
-                        if (wires.containsKey(operand1)) {
-                            wires[operand1]!!
-                        } else {
-                            calculateSignalValue(operand1)
-                        }
-                    } else {
-                        operand1.toInt()
-                    }
-                    wires[operand1] = operand1Value
-
-                    val operand2Value: Int = if (operand2.toIntOrNull() == null) {
-                        if (wires.containsKey(operand2)) {
-                            wires[operand2]!!
-                        } else {
-                            calculateSignalValue(operand2)
-                        }
-                    } else {
-                        operand2.toInt()
-                    }
-                    wires[operand2] = operand2Value
-
-                    val finalResult = operand1Value or operand2Value
-                    wires[wire] = finalResult
-                    return finalResult
+                    return calculateBinaryOperationResult(orMatch, wire, Operation.OR)
                 } else if (lshiftMatch != null) {
-                    val operand1 = lshiftMatch.groups[1]?.value!!
-                    val operand2 = lshiftMatch.groups[2]?.value!!
-
-                    val operand1Value: Int = if (operand1.toIntOrNull() == null) {
-                        if (wires.containsKey(operand1)) {
-                            wires[operand1]!!
-                        } else {
-                            calculateSignalValue(operand1)
-                        }
-                    } else {
-                        operand1.toInt()
-                    }
-                    wires[operand1] = operand1Value
-
-                    val operand2Value: Int = if (operand2.toIntOrNull() == null) {
-                        if (wires.containsKey(operand2)) {
-                            wires[operand2]!!
-                        } else {
-                            calculateSignalValue(operand2)
-                        }
-                    } else {
-                        operand2.toInt()
-                    }
-                    wires[operand2] = operand2Value
-
-                    val finalResult = operand1Value shl operand2Value
-                    wires[wire] = finalResult
-                    return finalResult
+                    return calculateBinaryOperationResult(lshiftMatch, wire, Operation.LSHIFT)
                 } else if (rshiftMatch != null) {
-                    val operand1 = rshiftMatch.groups[1]?.value!!
-                    val operand2 = rshiftMatch.groups[2]?.value!!
-
-                    val operand1Value: Int = if (operand1.toIntOrNull() == null) {
-                        if (wires.containsKey(operand1)) {
-                            wires[operand1]!!
-                        } else {
-                            calculateSignalValue(operand1)
-                        }
-                    } else {
-                        operand1.toInt()
-                    }
-                    wires[operand1] = operand1Value
-
-                    val operand2Value: Int = if (operand2.toIntOrNull() == null) {
-                        if (wires.containsKey(operand2)) {
-                            wires[operand2]!!
-                        } else {
-                            calculateSignalValue(operand2)
-                        }
-                    } else {
-                        operand2.toInt()
-                    }
-                    wires[operand2] = operand2Value
-
-                    val finalResult = operand1Value shr operand2Value
-                    wires[wire] = finalResult
-                    return finalResult
+                    return calculateBinaryOperationResult(rshiftMatch, wire, Operation.RSHIFT)
                 } else if (notMatch != null) {
                     val operand = notMatch.groups[1]?.value!!
                     val value = if (operand.toIntOrNull() == null) {
