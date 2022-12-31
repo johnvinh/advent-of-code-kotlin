@@ -7,8 +7,10 @@ enum class BinaryOperation {
     ADD, SUBTRACT, MULTIPLY, DIVIDE
 }
 
-fun calculateBinaryOperation(operation: BinaryOperation, regex: Regex, monkeys: HashMap<String, BigInteger>,
-                             line: String, monkey: String, lines: List<String>): BigInteger {
+fun calculateBinaryOperation(
+    operation: BinaryOperation, regex: Regex, monkeys: HashMap<String, BigInteger>,
+    line: String, monkey: String, lines: List<String>
+): BigInteger {
     val match = regex.matchEntire(line)
     val monkey1Name = match!!.groups[2]!!.value
     val monkey2Name = match.groups[3]!!.value
@@ -24,10 +26,17 @@ fun calculateBinaryOperation(operation: BinaryOperation, regex: Regex, monkeys: 
     }
 
     val result = when (operation) {
-        BinaryOperation.ADD -> BigInteger.valueOf(monkey1Value!!.toLong()).add(BigInteger.valueOf(monkey2Value!!.toLong()))
-        BinaryOperation.SUBTRACT -> BigInteger.valueOf(monkey1Value!!.toLong()).subtract(BigInteger.valueOf(monkey2Value!!.toLong()))
-        BinaryOperation.DIVIDE -> BigInteger.valueOf(monkey1Value!!.toLong()).divide(BigInteger.valueOf(monkey2Value!!.toLong()))
-        BinaryOperation.MULTIPLY -> BigInteger.valueOf(monkey1Value!!.toLong()).multiply(BigInteger.valueOf(monkey2Value!!.toLong()))
+        BinaryOperation.ADD -> BigInteger.valueOf(monkey1Value!!.toLong())
+            .add(BigInteger.valueOf(monkey2Value!!.toLong()))
+
+        BinaryOperation.SUBTRACT -> BigInteger.valueOf(monkey1Value!!.toLong())
+            .subtract(BigInteger.valueOf(monkey2Value!!.toLong()))
+
+        BinaryOperation.DIVIDE -> BigInteger.valueOf(monkey1Value!!.toLong())
+            .divide(BigInteger.valueOf(monkey2Value!!.toLong()))
+
+        BinaryOperation.MULTIPLY -> BigInteger.valueOf(monkey1Value!!.toLong())
+            .multiply(BigInteger.valueOf(monkey2Value!!.toLong()))
     }
     monkeys[monkey] = result
     return result
