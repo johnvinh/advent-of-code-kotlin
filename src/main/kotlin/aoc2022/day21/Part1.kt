@@ -1,13 +1,14 @@
 package aoc2022.day21
 
 import dev.johnvinh.getInput
-import kotlin.math.floor
+import java.math.BigInteger
 
 enum class BinaryOperation {
     ADD, SUBTRACT, MULTIPLY, DIVIDE
 }
 
-fun calculateBinaryOperation(operation: BinaryOperation, regex: Regex, monkeys: HashMap<String, Int>, line: String, monkey: String, lines: List<String>): Int {
+fun calculateBinaryOperation(operation: BinaryOperation, regex: Regex, monkeys: HashMap<String, BigInteger>,
+                             line: String, monkey: String, lines: List<String>): BigInteger {
     val match = regex.matchEntire(line)
     val monkey1Name = match!!.groups[2]!!.value
     val monkey2Name = match.groups[3]!!.value
@@ -24,29 +25,29 @@ fun calculateBinaryOperation(operation: BinaryOperation, regex: Regex, monkeys: 
 
     when (operation) {
         BinaryOperation.ADD -> {
-            val sum = monkey1Value!! + monkey2Value!!
+            val sum = BigInteger.valueOf(monkey1Value!!.toLong()).add(BigInteger.valueOf(monkey2Value!!.toLong()))
             monkeys[monkey] = sum
             return sum
         }
         BinaryOperation.SUBTRACT -> {
-            val difference = monkey1Value!! - monkey2Value!!
+            val difference = BigInteger.valueOf(monkey1Value!!.toLong()).subtract(BigInteger.valueOf(monkey2Value!!.toLong()))
             monkeys[monkey] = difference
             return difference
         }
         BinaryOperation.DIVIDE -> {
-            val quotient = monkey1Value!! / monkey2Value!!
+            val quotient = BigInteger.valueOf(monkey1Value!!.toLong()).divide(BigInteger.valueOf(monkey2Value!!.toLong()))
             monkeys[monkey] = quotient
             return quotient
         }
         BinaryOperation.MULTIPLY -> {
-            val product = monkey1Value!! * monkey2Value!!
+            val product = BigInteger.valueOf(monkey1Value!!.toLong()).multiply(BigInteger.valueOf(monkey2Value!!.toLong()))
             monkeys[monkey] = product
             return product
         }
     }
 }
 
-fun calculateMonkeyNumber(lines: List<String>, monkey: String, monkeys: HashMap<String, Int>): Int {
+fun calculateMonkeyNumber(lines: List<String>, monkey: String, monkeys: HashMap<String, BigInteger>): BigInteger {
     if (monkeys.containsKey(monkey) && monkeys[monkey] != null) {
         return monkeys[monkey]!!
     }
@@ -64,8 +65,8 @@ fun calculateMonkeyNumber(lines: List<String>, monkey: String, monkeys: HashMap<
             val match = constantRegex.matchEntire(line)
             val key = match!!.groups[1]!!.value
             val value = match.groups[2]!!.value
-            monkeys[key] = value.toInt()
-            return value.toInt()
+            monkeys[key] = BigInteger.valueOf(value.toLong())
+            return BigInteger.valueOf(value.toLong())
         } else if (addRegex.matches(line)) {
             return calculateBinaryOperation(BinaryOperation.ADD, addRegex, monkeys, line, monkey, lines)
         } else if (subtractRegex.matches(line)) {
@@ -76,11 +77,11 @@ fun calculateMonkeyNumber(lines: List<String>, monkey: String, monkeys: HashMap<
             return calculateBinaryOperation(BinaryOperation.DIVIDE, divideRegex, monkeys, line, monkey, lines)
         }
     }
-    return -1
+    return BigInteger.ZERO
 }
 
 fun main() {
     val lines = getInput()
-    val monkeys = HashMap<String, Int>()
+    val monkeys = HashMap<String, BigInteger>()
     println(calculateMonkeyNumber(lines, "root", monkeys))
 }
