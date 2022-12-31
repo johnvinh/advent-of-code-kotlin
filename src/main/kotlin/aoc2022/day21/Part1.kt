@@ -23,28 +23,14 @@ fun calculateBinaryOperation(operation: BinaryOperation, regex: Regex, monkeys: 
         calculateMonkeyNumber(lines, monkey2Name, monkeys)
     }
 
-    when (operation) {
-        BinaryOperation.ADD -> {
-            val sum = BigInteger.valueOf(monkey1Value!!.toLong()).add(BigInteger.valueOf(monkey2Value!!.toLong()))
-            monkeys[monkey] = sum
-            return sum
-        }
-        BinaryOperation.SUBTRACT -> {
-            val difference = BigInteger.valueOf(monkey1Value!!.toLong()).subtract(BigInteger.valueOf(monkey2Value!!.toLong()))
-            monkeys[monkey] = difference
-            return difference
-        }
-        BinaryOperation.DIVIDE -> {
-            val quotient = BigInteger.valueOf(monkey1Value!!.toLong()).divide(BigInteger.valueOf(monkey2Value!!.toLong()))
-            monkeys[monkey] = quotient
-            return quotient
-        }
-        BinaryOperation.MULTIPLY -> {
-            val product = BigInteger.valueOf(monkey1Value!!.toLong()).multiply(BigInteger.valueOf(monkey2Value!!.toLong()))
-            monkeys[monkey] = product
-            return product
-        }
+    val result = when (operation) {
+        BinaryOperation.ADD -> BigInteger.valueOf(monkey1Value!!.toLong()).add(BigInteger.valueOf(monkey2Value!!.toLong()))
+        BinaryOperation.SUBTRACT -> BigInteger.valueOf(monkey1Value!!.toLong()).subtract(BigInteger.valueOf(monkey2Value!!.toLong()))
+        BinaryOperation.DIVIDE -> BigInteger.valueOf(monkey1Value!!.toLong()).divide(BigInteger.valueOf(monkey2Value!!.toLong()))
+        BinaryOperation.MULTIPLY -> BigInteger.valueOf(monkey1Value!!.toLong()).multiply(BigInteger.valueOf(monkey2Value!!.toLong()))
     }
+    monkeys[monkey] = result
+    return result
 }
 
 fun calculateMonkeyNumber(lines: List<String>, monkey: String, monkeys: HashMap<String, BigInteger>): BigInteger {
