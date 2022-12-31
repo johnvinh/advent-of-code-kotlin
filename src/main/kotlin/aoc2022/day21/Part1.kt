@@ -35,6 +35,7 @@ fun calculateBinaryOperation(
 
         "*" -> BigInteger.valueOf(monkey1Value!!.toLong())
             .multiply(BigInteger.valueOf(monkey2Value!!.toLong()))
+
         else -> throw IllegalArgumentException()
     }
     monkeys[monkey] = result
