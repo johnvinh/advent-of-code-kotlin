@@ -15,3 +15,7 @@ fun createMap(input: List<String>): HashMap<String, String> {
     }
     return HashMap()
 }
+
+fun calculateMonkeyNumber(monkey: String, monkeys: HashMap<String, Int>): Int {
+    return 0
+}
