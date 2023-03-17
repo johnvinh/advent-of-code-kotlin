@@ -19,6 +19,12 @@ fun parseInput(lines: List<String>): List<List<Int>> {
     return outList
 }
 
+fun isValidTriangle(sides: List<Int>): Boolean {
+    return (sides[1] + sides[2]) > sides[3]
+}
+
 fun main() {
     val lines = getInput()
+    val numbers = parseInput(lines)
+    println(numbers)
 }
