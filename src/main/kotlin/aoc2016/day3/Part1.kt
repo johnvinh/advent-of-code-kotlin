@@ -20,11 +20,23 @@ fun parseInput(lines: List<String>): List<List<Int>> {
 }
 
 fun isValidTriangle(sides: List<Int>): Boolean {
-    return (sides[1] + sides[2]) > sides[3]
+    val oneTwoPair = (sides[0] + sides[1]) > sides[2]
+    val oneThreePair = (sides[0] + sides[2]) > sides[1]
+    val twoThreePair = (sides[1] + sides[2]) > sides[0]
+    if (oneTwoPair && oneThreePair && twoThreePair) {
+        return true
+    }
+    return false
 }
 
 fun main() {
     val lines = getInput()
     val numbers = parseInput(lines)
-    println(numbers)
+    var numPossible = 0
+    for (sides in numbers) {
+        if (isValidTriangle(sides)) {
+            numPossible++
+        }
+    }
+    println(numPossible)
 }
